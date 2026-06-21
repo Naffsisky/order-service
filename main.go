@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"runtime"
 	"strconv"
 	"sync/atomic"
 	"time"
@@ -105,6 +106,7 @@ func main() {
 						// request handler TIDAK terpengaruh → latency tetap normal
 						for i := 0; i < 1_000_000; i++ {
 						}
+					runtime.Gosched() // yield agar goroutine lain tetap jalan
 					}
 					slog.Info("cpu stress goroutine stopped", "event", "chaos_cpu_stop")
 				}()
